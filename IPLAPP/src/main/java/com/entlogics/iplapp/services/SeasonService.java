@@ -138,7 +138,7 @@ public class SeasonService implements ISeasonService {
 
 	@Override
 	public Season getSeason(int seasonId) {
-		System.out.println("Inside SeasonSerice getSeason() method");
+		System.out.println("Inside SeasonService getSeason() method");
 
 		Season season = null;
 		try {
@@ -152,7 +152,7 @@ public class SeasonService implements ISeasonService {
 
 	@Override
 	public List<Team> getAllTeamsOfSeason(int seasonId) {
-		System.out.println("Inside SeasonSerice getAllTeamsOfSeason() method");
+		System.out.println("Inside SeasonService getAllTeamsOfSeason() method");
 
 		// Find Season from database by seasonId
 		Season season = null;
@@ -184,7 +184,7 @@ public class SeasonService implements ISeasonService {
 	@Override
 	public List<Player> getAllPlayersOfSeason(int seasonId) {
 
-		System.out.println("Inside SeasonSerice getAllPlayerOfSeason() method");
+		System.out.println("Inside SeasonService getAllPlayerOfSeason() method");
 
 		// Findind Season from database by seasonId
 		Season season = null;
@@ -217,7 +217,7 @@ public class SeasonService implements ISeasonService {
 	@Override
 	public List<Match> getAllMatchesOfSeason(int seasonId) {
 
-		System.out.println("Inside SeasonSerice getAllMatchesOfSeason() method");
+		System.out.println("Inside SeasonService getAllMatchesOfSeason() method");
 
 		// Findind Season from database by seasonId
 		Season season = null;
@@ -237,7 +237,7 @@ public class SeasonService implements ISeasonService {
 	@Override
 	public List<Award> getAllAwardsOfSeason(int seasonId) {
 
-		System.out.println("Inside SeasonSerice getAllAwardsSeason() method");
+		System.out.println("Inside SeasonService getAllAwardsSeason() method");
 
 		// Findind Season from database by seasonId
 		Season season = null;
@@ -273,7 +273,7 @@ public class SeasonService implements ISeasonService {
 	@Override
 	public void editSeason(Season season, int seasonId) {
 
-		System.out.println("Inside SeasonSerice editSeason() method");
+		System.out.println("Inside SeasonService editSeason() method");
 
 		listOfSeasons.set(seasonId - 1, season);
 
@@ -284,7 +284,7 @@ public class SeasonService implements ISeasonService {
 	@Override
 	public void deleteSeason(int seasonId) {
 
-		System.out.println("Inside SeasonSerice deleteSeason() method" +seasonId);
+		System.out.println("Inside SeasonService deleteSeason() method" +seasonId);
 
 		listOfSeasons.remove(seasonId - 1);
 
