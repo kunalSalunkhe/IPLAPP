@@ -99,6 +99,7 @@ public class SeasonService implements ISeasonService {
 
 		// Adding Matches in season
 		s1.setMatches(matchList);
+		s2.setMatches(matchList);
 
 		System.out.println("Matches are added in Season");
 
@@ -119,6 +120,8 @@ public class SeasonService implements ISeasonService {
 
 		// Adding teamSeason in Season Object
 		s1.setSeasonTeams(teamSeasonList);
+		s2.setSeasonTeams(teamSeasonList);
+
 
 		System.out.println("Teams are added in Season");
 
