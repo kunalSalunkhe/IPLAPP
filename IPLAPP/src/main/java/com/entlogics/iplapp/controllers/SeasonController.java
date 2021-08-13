@@ -214,21 +214,24 @@ public class SeasonController {
 
 	
 	@RequestMapping("/seasons/editForm/seasons/edit/{seasonId}")
-	void editSeason(HttpServletRequest request, @ModelAttribute("season") Season season, @PathVariable int seasonId) {
+	String editSeason(HttpServletRequest request, @ModelAttribute("season") Season season, @PathVariable int seasonId) {
 
 		System.out.println("Inside SeasonController editSeason method");
 
 		// send it to service class to save it
 		iSeasonService.editSeason(season,seasonId);
+		
+		return "afterEdit";
 	}
 
 	@RequestMapping("/seasons/delete/{seasonId}")
-	void deleteSeason(@PathVariable int seasonId) {
+	String deleteSeason(@PathVariable int seasonId) {
 
 		System.out.println("Inside SeasonController deleteSeason method");
 
 		iSeasonService.deleteSeason(seasonId);
 
+		return "afterDelete";
 	}
 
 }
