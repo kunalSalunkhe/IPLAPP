@@ -131,7 +131,7 @@ public class SeasonController {
 			Match match = (Match) litr.next();
 			
 			//TODO Kunal, please correct this sysout
-			System.out.println("Award Object is : " + match);
+			System.out.println("Match Object is : " + match);
 		}
 
 		// adding season model in view
