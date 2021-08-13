@@ -75,21 +75,32 @@ public class SeasonService implements ISeasonService {
 		// match
 		Award award1 = new Award(1, "Man Of The Match", match1);
 		Award award2 = new Award(2, "SuperStriker", match1);
+		Award award3 = new Award(3, "Man Of The Match", match2);
+		Award award4 = new Award(4, "SuperStriker", match2);
 
 		// Adding other Properties Of Award
 		award1.setWinner(p1);
 		award2.setWinner(p1);
+		award3.setWinner(p2);
+		award4.setWinner(p2);
 
-		// Creating List of Awards
-		List<Award> awardList = new ArrayList<Award>();
+		// Creating List of Awards for match 1
+		List<Award> awardList1 = new ArrayList<Award>();
 
-		// add awards in awardList
-		awardList.add(award1);
-		awardList.add(award2);
+		// creating list for awards for match2
+		List<Award> awardList2 = new ArrayList<Award>();
+
+		// add awards in awardList 1
+		awardList1.add(award1);
+		awardList1.add(award2);
+
+		// add awards in awardsList 2
+		awardList2.add(award3);
+		awardList2.add(award4);
 
 		// adding awardList in match
-		match1.setAwards(awardList);
-
+		match1.setAwards(awardList1);
+		match2.setAwards(awardList2);
 		// Creating list of matches
 		List<Match> matchList = new ArrayList<Match>();
 
@@ -121,7 +132,6 @@ public class SeasonService implements ISeasonService {
 		// Adding teamSeason in Season Object
 		s1.setSeasonTeams(teamSeasonList);
 		s2.setSeasonTeams(teamSeasonList);
-
 
 		System.out.println("Teams are added in Season");
 
@@ -250,16 +260,36 @@ public class SeasonService implements ISeasonService {
 			e.printStackTrace();
 		}
 
+		// Creating Award List
+		List<Award> awardsOfSeason = new ArrayList<Award>();
+
 		// getting list of all matches
 		List<Match> matches = season.getMatches();
 
-		// Get a First match from the list
-		Match match = matches.get(0);
+		// iterate over the match
+		ListIterator mlitr = matches.listIterator();
 
-		// Creating award list
-		List<Award> awards = match.getAwards();
+		while (mlitr.hasNext()) {
 
-		return awards;
+			Match match = (Match) mlitr.next();
+
+			// Creating list for awards for each match
+			List<Award> awardsOfMatch = match.getAwards();
+
+			// Iterate over awardsOfMatch to get each award
+			ListIterator aitr = awardsOfMatch.listIterator();
+
+			while (aitr.hasNext()) {
+
+				Award award = (Award) aitr.next();
+
+				// adding this award in awards of season
+				awardsOfSeason.add(award);
+			}
+
+		}
+
+		return awardsOfSeason;
 	}
 
 	@Override
@@ -287,7 +317,7 @@ public class SeasonService implements ISeasonService {
 	@Override
 	public void deleteSeason(int seasonId) {
 
-		System.out.println("Inside SeasonService deleteSeason() method" +seasonId);
+		System.out.println("Inside SeasonService deleteSeason() method" + seasonId);
 
 		listOfSeasons.remove(seasonId - 1);
 
