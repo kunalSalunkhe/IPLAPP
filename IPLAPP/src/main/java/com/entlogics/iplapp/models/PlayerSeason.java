@@ -37,6 +37,10 @@ public class PlayerSeason implements Serializable {
 	@Column(name = "strike_rate")
 	private float strikeRate;
 
+	public PlayerSeason() {
+		
+	}
+	
 	public PlayerSeason(Player player, Season season) {
 		super();
 		this.player = player;

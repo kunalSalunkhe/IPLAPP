@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.25, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.26, for Linux (x86_64)
 --
 -- Host: localhost    Database: IPL
 -- ------------------------------------------------------
--- Server version	8.0.25-0ubuntu0.20.04.1
+-- Server version	8.0.26-0ubuntu0.20.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,7 +21,7 @@
 
 LOCK TABLES `dt_award` WRITE;
 /*!40000 ALTER TABLE `dt_award` DISABLE KEYS */;
-INSERT INTO `dt_award` VALUES (2,'Super Striker',5,1),(3,'Man Of The Match',3,2),(4,'Super Striker',3,2),(5,'Man Of The Match',1,3),(6,'Super Striker',1,3),(7,'Man Of The Match',5,4),(8,'Super Striker',5,4);
+INSERT INTO `dt_award` VALUES (1,'Man Of The Match',1,1),(2,'Super Striker',5,1),(3,'Man Of The Match',3,2),(4,'Super Striker',3,2),(5,'Man Of The Match',1,3),(6,'Super Striker',1,3),(7,'Man Of The Match',5,4),(8,'Super Striker',5,4);
 /*!40000 ALTER TABLE `dt_award` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,6 +114,16 @@ LOCK TABLES `lt_team_Season` WRITE;
 INSERT INTO `lt_team_Season` VALUES (1,1,'Champion',1,2,1),(2,1,'Second',5,6,5),(3,1,'Fourth',3,4,3),(4,1,'Sixth',7,8,7);
 /*!40000 ALTER TABLE `lt_team_Season` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping data for table `lt_team_matches`
+--
+
+LOCK TABLES `lt_team_matches` WRITE;
+/*!40000 ALTER TABLE `lt_team_matches` DISABLE KEYS */;
+INSERT INTO `lt_team_matches` VALUES (1,1,1,2,'Result',1,166,165),(2,2,3,4,'Result',1,202,200),(3,3,1,3,'Result',1,205,170),(4,4,2,4,'Result',2,160,158);
+/*!40000 ALTER TABLE `lt_team_matches` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -124,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-25 11:50:45
+-- Dump completed on 2021-08-16 19:27:56

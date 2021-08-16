@@ -49,6 +49,10 @@ public class Player {
 		this.type = type;
 	}
 
+	public Player() {
+		
+	}
+	
 	public int getPlayerId() {
 		return playerId;
 	}

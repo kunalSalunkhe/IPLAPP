@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -12,21 +14,22 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "lt_played_matches")
-@IdClass(TeamMatch.class)
+@Table(name = "lt_team_matches")
 public class TeamMatch implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "team_match_id")
+	private int teamMatchId;
+
 	@OneToOne
 	@JoinColumn(name = "matchID")
 	private Match m;
 
-	@Id
 	@ManyToOne
 	@JoinColumn(name = "team1ID")
 	private Team t1;
 
-	@Id
 	@OneToOne
 	@JoinColumn(name = "team2ID")
 	private Team t2;
@@ -53,6 +56,14 @@ public class TeamMatch implements Serializable {
 
 	public Team getT1() {
 		return t1;
+	}
+
+	public int getTeamMatchId() {
+		return teamMatchId;
+	}
+
+	public void setTeamMatchId(int teamMatchId) {
+		this.teamMatchId = teamMatchId;
 	}
 
 	public void setT1(Team t1) {

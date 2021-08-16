@@ -31,12 +31,12 @@ public class SeasonRepository implements ISeasonRepository {
 
 		Session session = factory.getCurrentSession();
 
-		System.out.println(session.get(Season.class, 1));
-
-		//System.out.println(session.get(Award.class, 1));
-
 		session.beginTransaction();
-
+		Season s = session.get(Season.class, 1);
+		
+		System.out.println(s.getSeasonPlayers());
+		
+		session.close();
 		return null;
 	}
 
