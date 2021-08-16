@@ -16,6 +16,9 @@ import com.entlogics.iplapp.models.Team;
 import com.entlogics.iplapp.models.TeamMatch;
 import com.entlogics.iplapp.models.TeamSeason;
 
+/*
+ * TODO Kunal, please add comment explaining what this class does
+ */
 public class SeasonRepository implements ISeasonRepository {
 
 	static SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Season.class)
@@ -27,14 +30,16 @@ public class SeasonRepository implements ISeasonRepository {
 	@Override
 	public List<Season> findAllSeasons() {
 
-		System.out.println("Inside SeasonRepository findAllSeasons");
+		System.out.println("Inside SeasonRepository findAllSeasons()");
 
 		Session session = factory.getCurrentSession();
 
 		session.beginTransaction();
 		Season s = session.get(Season.class, 1);
 		
-		System.out.println(s.getSeasonPlayers());
+		System.out.println("Season id : "+ s.getSeasonId());
+		System.out.println("Season Name : "+ s.getSeasonName());
+		System.out.println("Players of Season: " + s.getSeasonPlayers());
 		
 		session.close();
 		return null;
@@ -47,6 +52,10 @@ public class SeasonRepository implements ISeasonRepository {
 		System.out.println(s.findAllSeasons());
 	}
 
+	/*
+	 * TODO Kunal add comment for each method, explaining what the method does
+	 * Find Season Object by id from database
+	 */
 	@Override
 	public Season findSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findSeason");
