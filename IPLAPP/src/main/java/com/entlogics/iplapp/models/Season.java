@@ -2,19 +2,39 @@ package com.entlogics.iplapp.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "dt_season")
 public class Season {
 
+	@Id
+	@Column(name = "seasonID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int seasonId;
+
+	@Column(name = "sName")
 	private String seasonName;
 
+	@Column(name = "seasonNo")
 	private Integer yearOfSeason;
 
+	@OneToMany(mappedBy = "season", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PlayerSeason> seasonPlayers;
 
+	@OneToMany(mappedBy = "season", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Match> matches;
 
+	@OneToMany(mappedBy = "season", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<TeamSeason> seasonTeams;
 
 	public Season(int seasonId, String seasonName, Integer yearOfSeason) {
@@ -78,8 +98,7 @@ public class Season {
 
 	@Override
 	public String toString() {
-		return "Season [seasonId=" + seasonId + ", seasonName=" + seasonName + ", yearOfSeason=" + yearOfSeason
-				+ ", seasonPlayers=" + seasonPlayers + ", matches=" + matches + ", seasonTeams=" + seasonTeams + "]";
+		return "Season [seasonId=" + seasonId + ", seasonName=" + seasonName + ", yearOfSeason=" + yearOfSeason + "]";
 	}
 
 }

@@ -2,16 +2,39 @@ package com.entlogics.iplapp.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="dt_team")
 public class Team {
 
+	@Id
+	@Column(name="teamID")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int teamId;
+	
+	@Column(name="teamName")
 	private String teamName;
+	
+	@Column(name="ownerName")
 	private String ownerName;
 
+	@OneToMany(mappedBy="team",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<TeamSeason> teamSeasons;
 
+	@OneToMany(mappedBy="t",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<PlayerTeam> teamPlayers;
 
+	@OneToMany(mappedBy="t1",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<TeamMatch> teamMatches;
 
 	public Team(int teamId, String teamName, String ownerName) {

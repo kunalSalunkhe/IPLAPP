@@ -1,10 +1,35 @@
 package com.entlogics.iplapp.models;
 
-public class PlayerTeam {
+import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "lt_player_team")
+@IdClass(PlayerTeam.class)
+public class PlayerTeam implements Serializable{
+
+	@Id
+	@ManyToOne
+	@JoinColumn(name="playerID")
 	private Player p;
+
+	@Id
+	@ManyToOne
+	@JoinColumn(name = "teamID")
 	private Team t;
+
+	@Column(name = "noOfMatches")
 	private int noOfMatchesPlayed;
+
+	@ManyToOne
+	@JoinColumn(name = "seasonID")
 	private Season s;
 
 	public PlayerTeam(Player p, Team t) {

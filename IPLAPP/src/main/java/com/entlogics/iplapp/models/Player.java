@@ -2,15 +2,44 @@ package com.entlogics.iplapp.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "dt_player")
 public class Player {
 
+	@Id
+	@Column(name = "playerID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int playerId;
+
+	@Column(name = "pName")
 	private String playerName;
+
+	@Column(name = "pType")
 	private String type;
+
+	@Column(name = "age")
 	private int age;
+
+	@OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PlayerSeason> playerSeasons;
+
+	@OneToMany(mappedBy = "p", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PlayerTeam> playerTeams;
+
+	@OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PlayerMatch> playerMatches;
+
+	@OneToMany(mappedBy = "winner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Award> awardsWon;
 
 	public Player(int playerId, String playerName, String type) {
@@ -89,7 +118,5 @@ public class Player {
 		return "Player [playerId=" + playerId + ", playerName=" + playerName + ", type=" + type + ", playerSeasons="
 				+ playerSeasons + "]";
 	}
-
-	
 
 }

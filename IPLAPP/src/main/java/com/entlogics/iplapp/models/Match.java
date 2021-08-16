@@ -2,14 +2,44 @@ package com.entlogics.iplapp.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "dt_match")
 public class Match {
 
+	@Id
+	@Column(name = "matchID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int matchId;
+
 	private String matchDate;
+
+	@Column(name = "venue")
 	private String venue;
+
+	@OneToOne(mappedBy = "m")
 	private TeamMatch teamsPlayingInThisMatch;
+
+	@OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PlayerMatch> players;
+
+	@OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Award> awards;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	@JoinColumn(name = "seasonID")
 	private Season season;
 
 	public Match(int matchId, String matchDate, Season season, String venue) {

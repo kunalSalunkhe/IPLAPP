@@ -1,11 +1,38 @@
 package com.entlogics.iplapp.models;
 
-public class PlayerMatch {
+import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="lt_player_match")
+@IdClass(PlayerMatch.class)
+public class PlayerMatch implements Serializable{
+
+	@Id
+	@ManyToOne
+	@JoinColumn(name="playerID")
 	private Player player;
+	
+	@Id
+	@ManyToOne
+	@JoinColumn(name="matchID")
 	private Match match;
+	
+	@Column(name="runScored")
 	private int runsScored;
+	
+	@Column(name="wicketsTaken")
 	private int wicketsTaken;
+	
+	@Column(name="strikeRate")
 	private float strikeRate;
 
 	public PlayerMatch(Player player, Match match) {

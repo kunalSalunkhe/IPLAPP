@@ -1,10 +1,32 @@
 package com.entlogics.iplapp.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "dt_award")
 public class Award {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "awardId")
 	private int awardId;
+
+	@Column(name = "awardName")
 	private String awardName;
+
+	@ManyToOne
+	@JoinColumn(name = "winnerID")
 	private Player winner;
+
+	@ManyToOne
+	@JoinColumn(name = "matchId")
 	private Match match;
 
 	public Award(int awardId, String awardName, Match match) {
