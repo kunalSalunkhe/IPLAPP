@@ -1,5 +1,6 @@
 package com.entlogics.iplapp.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -36,19 +37,19 @@ public class SeasonRepository implements ISeasonRepository {
 
 		System.out.println("Inside SeasonRepository findAllSeasons()");
 
-		//get session from factory
+		// get session from factory
 		Session session = factory.getCurrentSession();
 
-		//initialize session, opening portal to connect with database
+		// initialize session, opening portal to connect with database
 		session.beginTransaction();
 
-		//getting season list from database
+		// getting season list from database
 		List<Season> seasons = session.createQuery("from Season s").getResultList();
 
-		//closing session
+		// closing session
 		session.close();
-		
-		//returning this list
+
+		// returning this list
 		return seasons;
 	}
 
@@ -57,12 +58,12 @@ public class SeasonRepository implements ISeasonRepository {
 	 */
 	public void testFindAllSeasons() {
 
-		System.out.println("Inside testFindAllSeasons method");
-		
-		//calling findAllSeasons
+		System.out.println("Inside testFindAllSeasons()");
+
+		// calling findAllSeasons
 		List<Season> seasons = findAllSeasons();
 
-		//Iterating over each session to print it on console
+		// Iterating over each session to print it on console
 		ListIterator litr = seasons.listIterator();
 
 		while (litr.hasNext()) {
@@ -86,20 +87,77 @@ public class SeasonRepository implements ISeasonRepository {
 		session.beginTransaction();
 		Season s = session.get(Season.class, 1);
 
-		System.out.println("Season id : " + s.getSeasonId());
-		System.out.println("Season Name : " + s.getSeasonName());
-		System.out.println("Players of Season: " + s.getSeasonPlayers());
-
 		session.close();
-		return null;
+		return s;
 	}
-	
-	
+
+	/*
+	 * Test method for checking findSeason method working or not
+	 */
+	public void testFindSeason() {
+		System.out.println("Inside testFindSeason()");
+		Season s = findSeason(1);
+
+		System.out.println("Season Object : " + s);
+	}
+
+	/*
+	 * find all team of Season by Id from database
+	 */
 
 	@Override
 	public List<Team> findAllTeamsOfSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findAllTeamsOfSeason()");
-		return null;
+
+		// get session from factory
+		Session session = factory.getCurrentSession();
+
+		// initialize session, opening portal to connect with database
+		session.beginTransaction();
+
+		Season season = session.get(Season.class, 1);
+
+		// Creating list of TeamSeason
+		// getting list of TeamSeason from database by seasonId
+		List<TeamSeason> teamSeasons = season.getSeasonTeams();
+
+		// Creating list of teams
+		List<Team> teams = new ArrayList<Team>();
+
+		// Iterate over TeamSeason
+		ListIterator litr = teamSeasons.listIterator();
+
+		while (litr.hasNext()) {
+
+			TeamSeason tseason = (TeamSeason) litr.next();
+
+			Team team = tseason.getTeam();
+
+			teams.add(team);
+		}
+
+		session.close();
+
+		return teams;
+	}
+
+	/*
+	 * Test method for checking findAllTeamsOfSeason method working or not
+	 */
+	public void testFindAllTeamsOfSeason() {
+		System.out.println("Inside SeasonRepository testFindAllTeamsOfSeason()");
+
+		List<Team> teams = findAllTeamsOfSeason(1);
+
+		ListIterator litr = teams.listIterator();
+
+		while (litr.hasNext()) {
+
+			Team team = (Team) litr.next();
+
+			System.out.println("Team Object : " + team);
+		}
+
 	}
 
 	@Override
@@ -144,10 +202,12 @@ public class SeasonRepository implements ISeasonRepository {
 	public static void main(String[] args) {
 		System.out.println("Inside main method");
 
-		//Creating object of SeasonRepository for calling non-static methods
+		// Creating object of SeasonRepository for calling non-static methods
 		SeasonRepository sr = new SeasonRepository();
-		
+
 		sr.testFindAllSeasons();
+		sr.testFindSeason();
+		sr.testFindAllTeamsOfSeason();
 	}
 
 }

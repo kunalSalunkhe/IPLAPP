@@ -37,6 +37,10 @@ public class Team {
 	@OneToMany(mappedBy="t1",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<TeamMatch> teamMatches;
 
+	public Team() {
+		
+	}
+	
 	public Team(int teamId, String teamName, String ownerName) {
 		super();
 		this.teamId = teamId;

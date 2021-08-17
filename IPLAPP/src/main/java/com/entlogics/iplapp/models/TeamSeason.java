@@ -3,6 +3,7 @@ package com.entlogics.iplapp.models;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -30,7 +31,8 @@ public class TeamSeason implements Serializable {
 	@JoinColumn(name = "captainID")
 	private Player captain;
 
-	private int rank;
+	@Column(name = "tRank")
+	private String rank;
 
 	@OneToOne
 	@JoinColumn(name = "highestRunsScorer")
@@ -40,16 +42,20 @@ public class TeamSeason implements Serializable {
 	@JoinColumn(name = "highestWicketTaker")
 	private Player highestWicketTaker;
 
+	public TeamSeason() {
+		
+	}
+	
 	public TeamSeason(Team team, Season season) {
 		super();
 		this.team = team;
 		this.season = season;
 	}
 
-	public void setTeamSeasonProperties(Player cap, int rank, Player hrs, Player hwt) {
+	public void setTeamSeasonProperties(Player cap, String rank, Player hrs, Player hwt) {
 
 		this.setCaptain(cap);
-		this.setRank(1);
+		this.setRank(rank);
 		this.setHighestRunsScorer(hwt);
 		this.setHighestWicketTaker(hwt);
 
@@ -79,11 +85,11 @@ public class TeamSeason implements Serializable {
 		this.captain = captain;
 	}
 
-	public int getRank() {
+	public String getRank() {
 		return rank;
 	}
 
-	public void setRank(int rank) {
+	public void setRank(String rank) {
 		this.rank = rank;
 	}
 
