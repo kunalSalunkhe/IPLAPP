@@ -24,6 +24,8 @@ public class SeasonService implements ISeasonService {
 	@Override
 	public void createDatabase() {
 		System.out.println("Creating Database....");
+		
+		/*
 
 		// Creating Season Objects
 		Season s1 = new Season(1, "season1", 2019);
@@ -140,6 +142,7 @@ public class SeasonService implements ISeasonService {
 		listOfSeasons.add(s3);
 
 		System.out.println("Size of the Season Database is :" + listOfSeasons.size());
+		*/
 		System.out.println("Created Database Succesfully...");
 	}
 
