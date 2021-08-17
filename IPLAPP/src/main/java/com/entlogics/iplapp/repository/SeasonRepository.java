@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -160,18 +162,107 @@ public class SeasonRepository implements ISeasonRepository {
 
 	}
 
+	/*
+	 * find all players of Season by Id from database
+	 */
 	@Override
 	public List<Player> findAllPlayersOfSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findAllPlayersOfSeason()");
-		return null;
+
+		// get session from factory
+		Session session = factory.getCurrentSession();
+
+		// initialize session, opening portal to connect with database
+		session.beginTransaction();
+
+		Season season = session.get(Season.class, 1);
+
+		// Creating list of PlayerSeason
+		// getting list of PlayerSeason from database by seasonId
+		List<PlayerSeason> playerSeasons = season.getSeasonPlayers();
+
+		// Creating list of players
+		List<Player> players = new ArrayList<Player>();
+
+		// Iterate over TeamSeason
+		ListIterator litr = playerSeasons.listIterator();
+
+		while (litr.hasNext()) {
+
+			PlayerSeason pseason = (PlayerSeason) litr.next();
+
+			Player player = pseason.getPlayer();
+
+			players.add(player);
+		}
+
+		session.close();
+
+		return players;
 	}
 
+	/*
+	 * Test method for checking findAllPlayersOfSeason method working or not
+	 */
+	public void testFindAllPlayersOfSeason() {
+		System.out.println("Inside SeasonRepository testFindAllPlayersOfSeason()");
+
+		List<Player> players = findAllPlayersOfSeason(1);
+
+		ListIterator litr = players.listIterator();
+
+		while (litr.hasNext()) {
+
+			Player player = (Player) litr.next();
+
+			System.out.println("Player Object : " + player);
+		}
+
+	}
+
+	/*
+	 * find all matches of Season by Id from database
+	 */
 	@Override
 	public List<Match> findAllMatchesOfSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findAllMatchesOfSeason()");
-		return null;
+
+		// get session from factory
+		Session session = factory.getCurrentSession();
+
+		// initialize session, opening portal to connect with database
+		session.beginTransaction();
+
+		Season season = session.get(Season.class, 1);
+
+		// Creating list of Matches
+		// getting list of matches from database by seasonId
+		List<Match> matches = season.getMatches();
+		
+		//session.close();
+
+		return matches;
 	}
 
+	/*
+	  Test method for checking findAllMatchesOfSeason method working or not
+	 */
+	public void testFindAllMatchesOfSeason() {
+		System.out.println("Inside SeasonRepository testFindAllMatchesOfSeason()");
+
+		List<Match> matches = findAllMatchesOfSeason(1);
+
+		ListIterator litr = matches.listIterator();
+
+		while (litr.hasNext()) {
+
+			Match match = (Match) litr.next();
+
+			System.out.println("Match Object : " + match);
+		}
+	}
+
+	
 	@Override
 	public List<Award> findAllAwardsOfSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findAllAwardsSeason()");
@@ -208,6 +299,9 @@ public class SeasonRepository implements ISeasonRepository {
 		sr.testFindAllSeasons();
 		sr.testFindSeason();
 		sr.testFindAllTeamsOfSeason();
+		sr.testFindAllPlayersOfSeason();
+		//List<Match> matches  = sr.findAllMatchesOfSeason(1);
+		sr.testFindAllMatchesOfSeason();
 	}
 
 }

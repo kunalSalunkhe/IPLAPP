@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,23 +23,23 @@ public class TeamMatch implements Serializable {
 	@Column(name = "team_match_id")
 	private int teamMatchId;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "matchID")
 	private Match m;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "team1ID")
 	private Team t1;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "team2ID")
 	private Team t2;
 
-	@OneToOne
-	@JoinColumn(name = "winnerID")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "winner_id")
 	private Team winnerTeam;
 
-	@Column(name = "matchStatus")
+	@Column(name = "match_status")
 	private String matchStatus;
 
 	@Column(name = "team1_score")
@@ -47,6 +48,10 @@ public class TeamMatch implements Serializable {
 	@Column(name = "team2_score")
 	private int team2Score;
 
+	public TeamMatch() {
+		
+	}
+	
 	public TeamMatch(Team t1, Team t2, Match m) {
 		super();
 		this.t1 = t1;

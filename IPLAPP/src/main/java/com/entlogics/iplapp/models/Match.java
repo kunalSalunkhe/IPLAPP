@@ -25,12 +25,14 @@ public class Match {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int matchId;
 
-	private String matchDate;
+	@ManyToOne
+	@JoinColumn(name = "seasonID")
+	private Season season;
 
 	@Column(name = "venue")
 	private String venue;
 
-	@OneToOne(mappedBy = "m")
+	@OneToOne(mappedBy = "m", fetch = FetchType.LAZY)
 	private TeamMatch teamsPlayingInThisMatch;
 
 	@OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -39,17 +41,15 @@ public class Match {
 	@OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Award> awards;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	@JoinColumn(name = "seasonID")
-	private Season season;
+	public Match() {
 
-	public Match(int matchId, String matchDate, Season season, String venue) {
+	}
+
+	public Match(int matchId, Season season, String venue) {
 		super();
 		this.matchId = matchId;
-		this.matchDate = matchDate;
 		this.season = season;
 		this.venue = venue;
-
 	}
 
 	public int getMatchId() {
@@ -60,14 +60,11 @@ public class Match {
 		this.matchId = matchId;
 	}
 
-	public String getMatchDate() {
-		return matchDate;
-	}
-
-	public void setMatchDate(String matchDate) {
-		this.matchDate = matchDate;
-	}
-
+	/*
+	 * public String getMatchDate() { return matchDate; }
+	 * 
+	 * public void setMatchDate(String matchDate) { this.matchDate = matchDate; }
+	 */
 	public TeamMatch getTeamsPlayingInThisMatch() {
 		return teamsPlayingInThisMatch;
 	}
@@ -110,8 +107,7 @@ public class Match {
 
 	@Override
 	public String toString() {
-		return "Match [matchId=" + matchId + ", matchDate=" + matchDate + ", venue=" + venue
-				+ ", teamsPlayingInThisMatch=" + teamsPlayingInThisMatch + ", awards=" + awards + "]";
+		return "Match [matchId=" + matchId + "venue=" + venue + "]";
 	}
 
 }

@@ -44,15 +44,16 @@ public class Player {
 
 	public Player(int playerId, String playerName, String type) {
 		super();
+
 		this.playerId = playerId;
 		this.playerName = playerName;
 		this.type = type;
 	}
 
 	public Player() {
-		
+
 	}
-	
+
 	public int getPlayerId() {
 		return playerId;
 	}
@@ -69,14 +70,11 @@ public class Player {
 		this.playerName = playerName;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
+	/*
+	 * public String getType() { return type; }
+	 * 
+	 * public void setType(String type) { this.type = type; }
+	 */
 	public int getAge() {
 		return age;
 	}
@@ -119,8 +117,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player [playerId=" + playerId + ", playerName=" + playerName + ", type=" + type + ", playerSeasons="
-				+ playerSeasons + "]";
+		return "Player [playerId=" + playerId + ", playerName=" + playerName + "type=" + type + "]";
 	}
 
 }

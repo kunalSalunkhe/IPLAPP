@@ -56,8 +56,8 @@ public class SeasonService implements ISeasonService {
 		System.out.println("Players are added in Season");
 
 		//// adding Matches in Season Objects - for that Creating Match Objects
-		Match match1 = new Match(1, "2021-04-13", s1, "Mumbai");
-		Match match2 = new Match(2, "2021-04-14", s1, "Banglore");
+		Match match1 = new Match(1, s1, "Mumbai");
+		Match match2 = new Match(2, s1, "Banglore");
 
 		// Creating TeamMatch objects for adding teams which are playing in this matches
 		Team team1 = new Team(1, "CSK", "India Cements");
@@ -119,8 +119,8 @@ public class SeasonService implements ISeasonService {
 		TeamSeason teamSeason2 = new TeamSeason(team2, s1);
 
 		// Adding other properties of for TeamSeason object
-		teamSeason1.setTeamSeasonProperties(p1, 1, p1, p1);
-		teamSeason1.setTeamSeasonProperties(p2, 2, p2, p3);
+		teamSeason1.setTeamSeasonProperties(p1, "Champion", p1, p1);
+		teamSeason1.setTeamSeasonProperties(p2, "Runner up", p2, p3);
 
 		// Creating TeamSeason list
 		List<TeamSeason> teamSeasonList = new ArrayList<TeamSeason>();
