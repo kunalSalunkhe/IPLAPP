@@ -87,7 +87,7 @@ public class SeasonRepository implements ISeasonRepository {
 		Session session = factory.getCurrentSession();
 
 		session.beginTransaction();
-		Season s = session.get(Season.class, 1);
+		Season s = session.get(Season.class, seasonId);
 
 		session.close();
 		return s;
@@ -117,7 +117,7 @@ public class SeasonRepository implements ISeasonRepository {
 		// initialize session, opening portal to connect with database
 		session.beginTransaction();
 
-		Season season = session.get(Season.class, 1);
+		Season season = session.get(Season.class, seasonId);
 
 		// Creating list of TeamSeason
 		// getting list of TeamSeason from database by seasonId
@@ -175,7 +175,7 @@ public class SeasonRepository implements ISeasonRepository {
 		// initialize session, opening portal to connect with database
 		session.beginTransaction();
 
-		Season season = session.get(Season.class, 1);
+		Season season = session.get(Season.class, seasonId);
 
 		// Creating list of PlayerSeason
 		// getting list of PlayerSeason from database by seasonId
@@ -233,19 +233,19 @@ public class SeasonRepository implements ISeasonRepository {
 		// initialize session, opening portal to connect with database
 		session.beginTransaction();
 
-		Season season = session.get(Season.class, 1);
+		Season season = session.get(Season.class, seasonId);
 
 		// Creating list of Matches
 		// getting list of matches from database by seasonId
 		List<Match> matches = season.getMatches();
-		
-		//session.close();
+
+		// session.close();
 
 		return matches;
 	}
 
 	/*
-	  Test method for checking findAllMatchesOfSeason method working or not
+	 * Test method for checking findAllMatchesOfSeason method working or not
 	 */
 	public void testFindAllMatchesOfSeason() {
 		System.out.println("Inside SeasonRepository testFindAllMatchesOfSeason()");
@@ -262,23 +262,119 @@ public class SeasonRepository implements ISeasonRepository {
 		}
 	}
 
-	
+	/*
+	 * find all matches of Season by Id from database iterate over a match to get it
+	 * award hence return this award list
+	 */
+
 	@Override
 	public List<Award> findAllAwardsOfSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findAllAwardsSeason()");
-		return null;
+
+		// get session from factory
+		Session session = factory.getCurrentSession();
+
+		// initialize session, opening portal to connect with database
+		// session.beginTransaction();
+
+		Season season = session.get(Season.class, seasonId);
+
+		// Creating list of Matches
+		// getting list of matches from database by seasonId
+		List<Match> matches = season.getMatches();
+
+		// Creating award list
+		List<Award> totalAwards = new ArrayList<Award>();
+
+		// Iterating over matches to get awards of each match
+		ListIterator litr = matches.listIterator();
+
+		while (litr.hasNext()) {
+
+			Match match = (Match) litr.next();
+
+			List<Award> awardsOfMatch = match.getAwards();
+
+			// iterate over awardOfMatch and add award one by one in totalAwards
+
+			ListIterator alitr = awardsOfMatch.listIterator();
+
+			while (alitr.hasNext()) {
+
+				Award award = (Award) alitr.next();
+
+				totalAwards.add(award);
+
+			}
+
+		}
+
+		// session.close();
+		return totalAwards;
 	}
 
+	/*
+	 * Test method for checking findAllMatchesOfSeason method working or not
+	 */
+	public void testFindAllAwardsOfSeason() {
+		System.out.println("Inside SeasonRepository testFindAllMatchesOfSeason()");
+
+		Session session = factory.getCurrentSession();
+
+		List<Award> awards = findAllAwardsOfSeason(1);
+
+		ListIterator litr = awards.listIterator();
+
+		while (litr.hasNext()) {
+
+			Award award = (Award) litr.next();
+
+			System.out.println("Match Object : " + award);
+		}
+		session.close();
+	}
+
+	/*
+	 * get a new season object and save it in session
+	 */
 	@Override
-	public int createSeason(Season season) {
+	public void createSeason(Season season) {
 		System.out.println("Inside SeasonRepository createSeason()");
-		return 0;
+
+		Session session = factory.getCurrentSession();
+
+		session.beginTransaction();
+
+		session.save(season);
+
+		session.close();
+
 	}
 
+	/*
+	 * Creating a new season object and pass it to createSeason
+	 */
+	public void testCreateSeason() {
+
+		Season season = new Season("season5", 2022);
+
+		createSeason(season);
+	}
+
+	/*
+	 * get Season by seasonId and then edit it and save again
+	 */
 	@Override
-	public void editSeason(Season season, int seasonId) {
+	public void editSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository editSeason()");
 
+	}
+	
+	/*
+	 * Test method for editing a season
+	 */
+	public void testEditSeason() {
+	
 	}
 
 	@Override
@@ -300,8 +396,9 @@ public class SeasonRepository implements ISeasonRepository {
 		sr.testFindSeason();
 		sr.testFindAllTeamsOfSeason();
 		sr.testFindAllPlayersOfSeason();
-		//List<Match> matches  = sr.findAllMatchesOfSeason(1);
 		sr.testFindAllMatchesOfSeason();
+		sr.testFindAllAwardsOfSeason();
+		sr.testCreateSeason();
 	}
 
 }

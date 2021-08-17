@@ -38,9 +38,8 @@ public class Season {
 	@OneToMany(mappedBy = "season", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<TeamSeason> seasonTeams;
 
-	public Season(int seasonId, String seasonName, Integer yearOfSeason) {
+	public Season(String seasonName, Integer yearOfSeason) {
 		super();
-		this.seasonId = seasonId;
 		this.seasonName = seasonName;
 		this.yearOfSeason = yearOfSeason;
 	}

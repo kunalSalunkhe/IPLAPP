@@ -22,9 +22,9 @@ public interface ISeasonRepository {
 
 	public List<Award> findAllAwardsOfSeason(int seasonId);
 
-	public int createSeason(Season season);
+	public void createSeason(Season season);
 
-	public void editSeason(Season season, int seasonId);
+	public void editSeason(int seasonId);
 
 	public void deleteSeason(int seasonId);
 }

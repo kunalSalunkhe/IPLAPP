@@ -30,6 +30,10 @@ public class Award {
 	@JoinColumn(name = "matchId")
 	private Match match;
 
+	public Award() {
+		
+	}
+	
 	public Award(int awardId, String awardName, Match match) {
 		super();
 		this.awardId = awardId;
@@ -71,6 +75,6 @@ public class Award {
 
 	@Override
 	public String toString() {
-		return "Award [awardId=" + awardId + ", awardName=" + awardName + "]";
+		return "Award [awardId=" + awardId + ", awardName=" + awardName + ", Winner= " +winner.getPlayerName()+"]";
 	}
 }

@@ -1,5 +1,6 @@
 package com.entlogics.iplapp.models;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,6 +33,9 @@ public class Match {
 	@Column(name = "venue")
 	private String venue;
 
+	@Column(name="mDate")
+	private Date matchDate;
+	
 	@OneToOne(mappedBy = "m", fetch = FetchType.LAZY)
 	private TeamMatch teamsPlayingInThisMatch;
 
@@ -107,7 +111,7 @@ public class Match {
 
 	@Override
 	public String toString() {
-		return "Match [matchId=" + matchId + "venue=" + venue + "]";
+		return "Match [matchId = " + matchId + " , venue = " + venue + ", Date =" +matchDate+"]";
 	}
 
 }
