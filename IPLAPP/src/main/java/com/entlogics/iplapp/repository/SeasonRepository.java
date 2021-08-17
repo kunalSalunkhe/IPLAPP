@@ -369,18 +369,27 @@ public class SeasonRepository implements ISeasonRepository {
 		System.out.println("Inside SeasonRepository editSeason()");
 
 	}
-	
+
 	/*
 	 * Test method for editing a season
 	 */
 	public void testEditSeason() {
-	
+
 	}
 
 	@Override
 	public void deleteSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository deleteSeason()");
 
+		Session session = factory.getCurrentSession();
+
+		session.beginTransaction();
+
+		session.delete(session.get(Season.class, seasonId));
+
+		session.getTransaction().commit();
+
+		session.close();
 	}
 
 	/*
@@ -399,6 +408,7 @@ public class SeasonRepository implements ISeasonRepository {
 		sr.testFindAllMatchesOfSeason();
 		sr.testFindAllAwardsOfSeason();
 		sr.testCreateSeason();
+		//sr.deleteSeason(6);
 	}
 
 }
