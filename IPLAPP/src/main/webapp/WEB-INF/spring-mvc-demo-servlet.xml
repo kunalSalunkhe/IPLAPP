@@ -18,6 +18,8 @@
 		base-package="com.entlogics.iplapp.models" />
 	<context:component-scan
 		base-package="com.entlogics.iplapp.services" />
+	<context:component-scan
+		base-package="com.entlogics.iplapp.repository" />
 
 	<!-- Step 4: Add support for conversion, formatting and validation support -->
 	<mvc:annotation-driven />

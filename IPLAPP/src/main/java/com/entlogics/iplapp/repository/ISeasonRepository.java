@@ -24,7 +24,7 @@ public interface ISeasonRepository {
 
 	public void createSeason(Season season);
 
-	public void editSeason(int seasonId);
+	public void editSeason(Season season);
 
 	public void deleteSeason(int seasonId);
 }

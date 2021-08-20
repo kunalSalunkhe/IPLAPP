@@ -33,9 +33,9 @@ public class Match {
 	@Column(name = "venue")
 	private String venue;
 
-	@Column(name="mDate")
+	@Column(name = "mDate")
 	private Date matchDate;
-	
+
 	@OneToOne(mappedBy = "m", fetch = FetchType.LAZY)
 	private TeamMatch teamsPlayingInThisMatch;
 
@@ -64,11 +64,14 @@ public class Match {
 		this.matchId = matchId;
 	}
 
-	/*
-	 * public String getMatchDate() { return matchDate; }
-	 * 
-	 * public void setMatchDate(String matchDate) { this.matchDate = matchDate; }
-	 */
+	public Date getMatchDate() {
+		return matchDate;
+	}
+
+	public void setMatchDate(Date matchDate) {
+		this.matchDate = matchDate;
+	}
+
 	public TeamMatch getTeamsPlayingInThisMatch() {
 		return teamsPlayingInThisMatch;
 	}
@@ -111,7 +114,7 @@ public class Match {
 
 	@Override
 	public String toString() {
-		return "Match [matchId = " + matchId + " , venue = " + venue + ", Date =" +matchDate+"]";
+		return "Match [matchId = " + matchId + " , venue = " + venue + ", Date =" + matchDate + "]";
 	}
 
 }

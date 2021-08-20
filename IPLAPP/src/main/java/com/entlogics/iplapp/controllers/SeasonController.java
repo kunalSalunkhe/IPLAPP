@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,7 @@ import com.entlogics.iplapp.models.Team;
 import com.entlogics.iplapp.services.ISeasonService;
 
 @Controller
+@ComponentScan
 public class SeasonController {
 
 	ISeasonService iSeasonService;

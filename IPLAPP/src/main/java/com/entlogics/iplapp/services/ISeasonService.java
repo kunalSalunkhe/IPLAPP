@@ -10,7 +10,7 @@ import com.entlogics.iplapp.models.Team;
 
 public interface ISeasonService {
 
-	public void createDatabase();
+	//public void createDatabase();
 
 	public List<Season> getAllSeasons();
 
@@ -26,7 +26,7 @@ public interface ISeasonService {
 
 	public int createSeason(Season season);
 
-	public void editSeason(Season season, int seasonId);
+	public void editSeason(Season season,int seasonId);
 
 	public void deleteSeason(int seasonId);
 

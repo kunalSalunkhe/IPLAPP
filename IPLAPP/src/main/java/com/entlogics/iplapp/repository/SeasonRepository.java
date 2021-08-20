@@ -9,6 +9,9 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.entlogics.iplapp.models.Award;
 import com.entlogics.iplapp.models.Match;
 import com.entlogics.iplapp.models.Player;
@@ -23,6 +26,8 @@ import com.entlogics.iplapp.models.TeamSeason;
 /*
  * TODO Kunal, please add comment explaining what this class does
  */
+@Repository
+@Component
 public class SeasonRepository implements ISeasonRepository {
 
 	static SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Season.class)
@@ -30,6 +35,8 @@ public class SeasonRepository implements ISeasonRepository {
 			.addAnnotatedClass(PlayerSeason.class).addAnnotatedClass(PlayerTeam.class).addAnnotatedClass(Match.class)
 			.addAnnotatedClass(TeamMatch.class).addAnnotatedClass(PlayerMatch.class).addAnnotatedClass(Award.class)
 			.buildSessionFactory();
+
+	Session session = factory.getSessionFactory().openSession();
 
 	/*
 	 * Find all seasons of IPL from database
@@ -227,9 +234,6 @@ public class SeasonRepository implements ISeasonRepository {
 	public List<Match> findAllMatchesOfSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findAllMatchesOfSeason()");
 
-		// get session from factory
-		Session session = factory.getCurrentSession();
-
 		// initialize session, opening portal to connect with database
 		session.beginTransaction();
 
@@ -238,8 +242,6 @@ public class SeasonRepository implements ISeasonRepository {
 		// Creating list of Matches
 		// getting list of matches from database by seasonId
 		List<Match> matches = season.getMatches();
-
-		// session.close();
 
 		return matches;
 	}
@@ -260,6 +262,7 @@ public class SeasonRepository implements ISeasonRepository {
 
 			System.out.println("Match Object : " + match);
 		}
+
 	}
 
 	/*
@@ -270,12 +273,6 @@ public class SeasonRepository implements ISeasonRepository {
 	@Override
 	public List<Award> findAllAwardsOfSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findAllAwardsSeason()");
-
-		// get session from factory
-		Session session = factory.getCurrentSession();
-
-		// initialize session, opening portal to connect with database
-		// session.beginTransaction();
 
 		Season season = session.get(Season.class, seasonId);
 
@@ -309,7 +306,6 @@ public class SeasonRepository implements ISeasonRepository {
 
 		}
 
-		// session.close();
 		return totalAwards;
 	}
 
@@ -331,7 +327,7 @@ public class SeasonRepository implements ISeasonRepository {
 
 			System.out.println("Match Object : " + award);
 		}
-		session.close();
+		// session.close();
 	}
 
 	/*
@@ -365,8 +361,16 @@ public class SeasonRepository implements ISeasonRepository {
 	 * get Season by seasonId and then edit it and save again
 	 */
 	@Override
-	public void editSeason(int seasonId) {
+	public void editSeason(Season season) {
 		System.out.println("Inside SeasonRepository editSeason()");
+
+		Session session = factory.getCurrentSession();
+
+		session.beginTransaction();
+
+		session.update(season);
+		session.getTransaction().commit();
+		session.close();
 
 	}
 
@@ -374,6 +378,12 @@ public class SeasonRepository implements ISeasonRepository {
 	 * Test method for editing a season
 	 */
 	public void testEditSeason() {
+
+		Season s = findSeason(2);
+
+		s.setYearOfSeason(2020);
+
+		editSeason(s);
 
 	}
 
@@ -407,8 +417,9 @@ public class SeasonRepository implements ISeasonRepository {
 		sr.testFindAllPlayersOfSeason();
 		sr.testFindAllMatchesOfSeason();
 		sr.testFindAllAwardsOfSeason();
-		sr.testCreateSeason();
-		//sr.deleteSeason(6);
+		// sr.testCreateSeason();
+		// sr.deleteSeason(6);
+		sr.testEditSeason();
 	}
 
 }
