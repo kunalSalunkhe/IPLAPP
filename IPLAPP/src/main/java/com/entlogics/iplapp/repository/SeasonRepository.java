@@ -25,11 +25,11 @@ import com.entlogics.iplapp.models.TeamSeason;
 @Component
 public class SeasonRepository implements ISeasonRepository {
 
+	SessionFactory factory;
+
 	public SeasonRepository() {
 		super();
 	}
-
-	SessionFactory factory;
 
 	@Autowired
 	public void setFactory(SessionFactory factory) {
