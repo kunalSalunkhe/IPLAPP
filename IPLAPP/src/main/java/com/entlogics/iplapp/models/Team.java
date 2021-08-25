@@ -14,36 +14,38 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="dt_team")
+@Table(name = "dt_team")
 public class Team {
 
 	@Id
-	@Column(name="teamID")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "teamID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int teamId;
-	
-	@Column(name="teamName")
+
+	@Column(name = "teamName")
 	private String teamName;
-	
-	@Column(name="ownerName")
+
+	@Column(name = "ownerName")
 	private String ownerName;
 
-	@OneToMany(mappedBy="team",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@Column(name = "team_no")
+	private int teamNo;
+
+	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<TeamSeason> teamSeasons;
 
-	@OneToMany(mappedBy="t",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "t", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PlayerTeam> teamPlayers;
 
-	@OneToMany(mappedBy="t1",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "t1", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<TeamMatch> teamMatches;
 
 	public Team() {
-		
+
 	}
-	
-	public Team(int teamId, String teamName, String ownerName) {
+
+	public Team(String teamName, String ownerName) {
 		super();
-		this.teamId = teamId;
 		this.teamName = teamName;
 		this.ownerName = ownerName;
 	}
@@ -70,6 +72,14 @@ public class Team {
 
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
+	}
+
+	public int getTeamNo() {
+		return teamNo;
+	}
+
+	public void setTeamNo(int teamNo) {
+		this.teamNo = teamNo;
 	}
 
 	public List<TeamSeason> getTeamSeasons() {

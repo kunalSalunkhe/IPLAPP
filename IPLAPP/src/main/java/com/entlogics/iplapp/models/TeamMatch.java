@@ -49,9 +49,9 @@ public class TeamMatch implements Serializable {
 	private int team2Score;
 
 	public TeamMatch() {
-		
+
 	}
-	
+
 	public TeamMatch(Team t1, Team t2, Match m) {
 		super();
 		this.t1 = t1;
@@ -125,7 +125,8 @@ public class TeamMatch implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TeamMatch [t1=" + t1 + ", t2=" + t2 + "]";
+		return "TeamMatch [m=" + m + ", matchStatus=" + matchStatus + ", team1Score=" + team1Score + ", team2Score="
+				+ team2Score + "]";
 	}
 
 }

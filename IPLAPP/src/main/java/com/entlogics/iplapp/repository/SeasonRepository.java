@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -30,13 +32,30 @@ import com.entlogics.iplapp.models.TeamSeason;
 @Component
 public class SeasonRepository implements ISeasonRepository {
 
-	static SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Season.class)
-			.addAnnotatedClass(TeamSeason.class).addAnnotatedClass(Team.class).addAnnotatedClass(Player.class)
-			.addAnnotatedClass(PlayerSeason.class).addAnnotatedClass(PlayerTeam.class).addAnnotatedClass(Match.class)
-			.addAnnotatedClass(TeamMatch.class).addAnnotatedClass(PlayerMatch.class).addAnnotatedClass(Award.class)
-			.buildSessionFactory();
+	
+	
+	/*
+	  static SessionFactory factory = new
+	  Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Season.
+	  class) .addAnnotatedClass(TeamSeason.class).addAnnotatedClass(Team.class).
+	  addAnnotatedClass(Player.class)
+	  .addAnnotatedClass(PlayerSeason.class).addAnnotatedClass(PlayerTeam.class).
+	  addAnnotatedClass(Match.class)
+	  .addAnnotatedClass(TeamMatch.class).addAnnotatedClass(PlayerMatch.class).
+	  addAnnotatedClass(Award.class) .buildSessionFactory();
+	*/
+	
 
-	Session session = factory.getSessionFactory().openSession();
+	public SeasonRepository() {
+		super();
+	}
+
+	SessionFactory factory;
+
+	@Autowired
+	public void setFactory(SessionFactory factory) {
+		this.factory = factory;
+	}
 
 	/*
 	 * Find all seasons of IPL from database
@@ -47,17 +66,15 @@ public class SeasonRepository implements ISeasonRepository {
 		System.out.println("Inside SeasonRepository findAllSeasons()");
 
 		// get session from factory
-		Session session = factory.getCurrentSession();
-
+		Session session = factory.getSessionFactory().openSession();
 		// initialize session, opening portal to connect with database
 		session.beginTransaction();
 
 		// getting season list from database
 		List<Season> seasons = session.createQuery("from Season s").getResultList();
 
-		// closing session
-		session.close();
-
+		session.getTransaction().commit();
+		
 		// returning this list
 		return seasons;
 	}
@@ -91,12 +108,11 @@ public class SeasonRepository implements ISeasonRepository {
 	public Season findSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findSeason()");
 
-		Session session = factory.getCurrentSession();
+		Session session = factory.getSessionFactory().openSession();
 
 		session.beginTransaction();
 		Season s = session.get(Season.class, seasonId);
 
-		session.close();
 		return s;
 	}
 
@@ -119,7 +135,7 @@ public class SeasonRepository implements ISeasonRepository {
 		System.out.println("Inside SeasonRepository findAllTeamsOfSeason()");
 
 		// get session from factory
-		Session session = factory.getCurrentSession();
+		Session session = factory.getSessionFactory().openSession();
 
 		// initialize session, opening portal to connect with database
 		session.beginTransaction();
@@ -144,8 +160,6 @@ public class SeasonRepository implements ISeasonRepository {
 
 			teams.add(team);
 		}
-
-		session.close();
 
 		return teams;
 	}
@@ -177,7 +191,7 @@ public class SeasonRepository implements ISeasonRepository {
 		System.out.println("Inside SeasonRepository findAllPlayersOfSeason()");
 
 		// get session from factory
-		Session session = factory.getCurrentSession();
+		Session session = factory.getSessionFactory().openSession();
 
 		// initialize session, opening portal to connect with database
 		session.beginTransaction();
@@ -202,8 +216,6 @@ public class SeasonRepository implements ISeasonRepository {
 
 			players.add(player);
 		}
-
-		session.close();
 
 		return players;
 	}
@@ -235,7 +247,7 @@ public class SeasonRepository implements ISeasonRepository {
 		System.out.println("Inside SeasonRepository findAllMatchesOfSeason()");
 
 		// initialize session, opening portal to connect with database
-		session.beginTransaction();
+		Session session = factory.getSessionFactory().openSession();
 
 		Season season = session.get(Season.class, seasonId);
 
@@ -273,6 +285,8 @@ public class SeasonRepository implements ISeasonRepository {
 	@Override
 	public List<Award> findAllAwardsOfSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository findAllAwardsSeason()");
+
+		Session session = factory.getSessionFactory().openSession();
 
 		Season season = session.get(Season.class, seasonId);
 
@@ -315,8 +329,6 @@ public class SeasonRepository implements ISeasonRepository {
 	public void testFindAllAwardsOfSeason() {
 		System.out.println("Inside SeasonRepository testFindAllMatchesOfSeason()");
 
-		Session session = factory.getCurrentSession();
-
 		List<Award> awards = findAllAwardsOfSeason(1);
 
 		ListIterator litr = awards.listIterator();
@@ -337,13 +349,11 @@ public class SeasonRepository implements ISeasonRepository {
 	public void createSeason(Season season) {
 		System.out.println("Inside SeasonRepository createSeason()");
 
-		Session session = factory.getCurrentSession();
+		Session session = factory.getSessionFactory().openSession();
 
 		session.beginTransaction();
 
 		session.save(season);
-
-		session.close();
 
 	}
 
@@ -363,14 +373,12 @@ public class SeasonRepository implements ISeasonRepository {
 	@Override
 	public void editSeason(Season season) {
 		System.out.println("Inside SeasonRepository editSeason()");
-
-		Session session = factory.getCurrentSession();
+		Session session = factory.getSessionFactory().openSession();
 
 		session.beginTransaction();
 
 		session.update(season);
 		session.getTransaction().commit();
-		session.close();
 
 	}
 
@@ -391,20 +399,39 @@ public class SeasonRepository implements ISeasonRepository {
 	public void deleteSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository deleteSeason()");
 
-		Session session = factory.getCurrentSession();
+		Session session = factory.getSessionFactory().openSession();
 
 		session.beginTransaction();
 
 		session.delete(session.get(Season.class, seasonId));
 
 		session.getTransaction().commit();
+	}
+	
+	public void addTeam(Team team) {
+		
+		System.out.println("Inside SeasonRepository addTeam()");
 
-		session.close();
+		Session session = factory.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		
+		session.save(team);
+		
+		session.getTransaction().commit();
+	}
+	
+	public void testAddTeam(){
+		
+		Team t = new Team("RR","SS");
+		
+		addTeam(t);
 	}
 
 	/*
 	 * main method calling all test methods
 	 */
+
 	public static void main(String[] args) {
 		System.out.println("Inside main method");
 
@@ -416,10 +443,10 @@ public class SeasonRepository implements ISeasonRepository {
 		sr.testFindAllTeamsOfSeason();
 		sr.testFindAllPlayersOfSeason();
 		sr.testFindAllMatchesOfSeason();
-		sr.testFindAllAwardsOfSeason();
-		// sr.testCreateSeason();
-		// sr.deleteSeason(6);
-		sr.testEditSeason();
+		sr.testFindAllAwardsOfSeason(); // sr.testCreateSeason(); //
+		//sr.deleteSeason(6);
+		//sr.testEditSeason();
+		//sr.testAddTeam();
 	}
 
 }

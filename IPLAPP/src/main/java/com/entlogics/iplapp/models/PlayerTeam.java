@@ -13,11 +13,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "lt_player_team")
 @IdClass(PlayerTeam.class)
-public class PlayerTeam implements Serializable{
+public class PlayerTeam implements Serializable {
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name="playerID")
+	@JoinColumn(name = "playerID")
 	private Player p;
 
 	@Id
@@ -31,6 +31,10 @@ public class PlayerTeam implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "seasonID")
 	private Season s;
+
+	public PlayerTeam() {
+
+	}
 
 	public PlayerTeam(Player p, Team t) {
 		super();
@@ -68,6 +72,11 @@ public class PlayerTeam implements Serializable{
 
 	public void setS(Season s) {
 		this.s = s;
+	}
+
+	@Override
+	public String toString() {
+		return "PlayerTeam [p=" + p + ", t=" + t + ", noOfMatchesPlayed=" + noOfMatchesPlayed + ", s=" + s + "]";
 	}
 
 }

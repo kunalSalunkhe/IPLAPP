@@ -131,7 +131,7 @@ public class SeasonController {
 		while (litr.hasNext()) {
 
 			Match match = (Match) litr.next();
-			
+
 			System.out.println("Match Object is : " + match);
 		}
 
@@ -187,13 +187,6 @@ public class SeasonController {
 
 		System.out.println("Inside SeasonController createSeason method");
 
-		List<Season> seasons = iSeasonService.getAllSeasons();
-
-		// season.setSeasonId(lastIndex);
-		int id = seasons.size() + 1;
-
-		season.setSeasonId(id);
-
 		// iSeasonService.createSeason(season);
 		iSeasonService.createSeason(season);
 
@@ -208,21 +201,20 @@ public class SeasonController {
 		Season season = iSeasonService.getSeason(seasonId);
 
 		System.out.println(season);
-		
+
 		model.addAttribute("season", season);
 
 		return "editSeason";
 	}
 
-	
 	@RequestMapping("/seasons/editForm/seasons/edit/{seasonId}")
 	String editSeason(HttpServletRequest request, @ModelAttribute("season") Season season, @PathVariable int seasonId) {
 
 		System.out.println("Inside SeasonController editSeason method");
 
 		// send it to service class to save it
-		iSeasonService.editSeason(season,seasonId);
-		
+		iSeasonService.editSeason(season, seasonId);
+
 		return "afterEdit";
 	}
 
@@ -236,4 +228,17 @@ public class SeasonController {
 		return "afterDelete";
 	}
 
+	@RequestMapping("/seasons/{seasonId}/teams/addTeam")
+	String addTeam(@ModelAttribute("team") Team team) {
+		
+		iSeasonService.addTeam(team);
+		
+		return "addTeam";
+	}
+
+	@RequestMapping("/seasons/{seasonId}/teams/teamAdded")
+	String addedTeam() {
+		
+		return "afterAddTeam";
+	}
 }

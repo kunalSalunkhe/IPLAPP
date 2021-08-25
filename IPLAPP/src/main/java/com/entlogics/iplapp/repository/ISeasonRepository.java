@@ -11,9 +11,9 @@ import com.entlogics.iplapp.models.Team;
 public interface ISeasonRepository {
 
 	public List<Season> findAllSeasons();
-	
+
 	public Season findSeason(int seasonId);
-	
+
 	public List<Team> findAllTeamsOfSeason(int seasonId);
 
 	public List<Player> findAllPlayersOfSeason(int seasonId);
@@ -27,4 +27,6 @@ public interface ISeasonRepository {
 	public void editSeason(Season season);
 
 	public void deleteSeason(int seasonId);
+
+	public void addTeam(Team team);
 }

@@ -20,7 +20,9 @@
 				<td><c:out value="${seasonTeam.ownerName}" /></td>
 			</tr>
 		</c:forEach>
-
+		<br>
+		<form action="teams/addTeam">
+			<button type="submit">Add New Team</button>
 	</table>
 
 </body>
