@@ -4,47 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.entlogics.iplapp.models.Award;
 import com.entlogics.iplapp.models.Match;
 import com.entlogics.iplapp.models.Player;
-import com.entlogics.iplapp.models.PlayerMatch;
 import com.entlogics.iplapp.models.PlayerSeason;
-import com.entlogics.iplapp.models.PlayerTeam;
 import com.entlogics.iplapp.models.Season;
 import com.entlogics.iplapp.models.Team;
-import com.entlogics.iplapp.models.TeamMatch;
 import com.entlogics.iplapp.models.TeamSeason;
 
 /*
- * TODO Kunal, please add comment explaining what this class does
+ * this class is fetching the data from database according to methods specified
  */
 @Repository
 @Component
 public class SeasonRepository implements ISeasonRepository {
-
-	
-	
-	/*
-	  static SessionFactory factory = new
-	  Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Season.
-	  class) .addAnnotatedClass(TeamSeason.class).addAnnotatedClass(Team.class).
-	  addAnnotatedClass(Player.class)
-	  .addAnnotatedClass(PlayerSeason.class).addAnnotatedClass(PlayerTeam.class).
-	  addAnnotatedClass(Match.class)
-	  .addAnnotatedClass(TeamMatch.class).addAnnotatedClass(PlayerMatch.class).
-	  addAnnotatedClass(Award.class) .buildSessionFactory();
-	*/
-	
 
 	public SeasonRepository() {
 		super();
@@ -74,34 +53,12 @@ public class SeasonRepository implements ISeasonRepository {
 		List<Season> seasons = session.createQuery("from Season s").getResultList();
 
 		session.getTransaction().commit();
-		
+
 		// returning this list
 		return seasons;
 	}
 
 	/*
-	 * Test method for checking findAllSeasons method working or not
-	 */
-	public void testFindAllSeasons() {
-
-		System.out.println("Inside testFindAllSeasons()");
-
-		// calling findAllSeasons
-		List<Season> seasons = findAllSeasons();
-
-		// Iterating over each session to print it on console
-		ListIterator litr = seasons.listIterator();
-
-		while (litr.hasNext()) {
-
-			Season season = (Season) litr.next();
-
-			System.out.println("season : " + season);
-		}
-	}
-
-	/*
-	 * TODO Kunal add comment for each method, explaining what the method does Find
 	 * Season Object by id from database
 	 */
 	@Override
@@ -114,16 +71,6 @@ public class SeasonRepository implements ISeasonRepository {
 		Season s = session.get(Season.class, seasonId);
 
 		return s;
-	}
-
-	/*
-	 * Test method for checking findSeason method working or not
-	 */
-	public void testFindSeason() {
-		System.out.println("Inside testFindSeason()");
-		Season s = findSeason(1);
-
-		System.out.println("Season Object : " + s);
 	}
 
 	/*
@@ -165,25 +112,6 @@ public class SeasonRepository implements ISeasonRepository {
 	}
 
 	/*
-	 * Test method for checking findAllTeamsOfSeason method working or not
-	 */
-	public void testFindAllTeamsOfSeason() {
-		System.out.println("Inside SeasonRepository testFindAllTeamsOfSeason()");
-
-		List<Team> teams = findAllTeamsOfSeason(1);
-
-		ListIterator litr = teams.listIterator();
-
-		while (litr.hasNext()) {
-
-			Team team = (Team) litr.next();
-
-			System.out.println("Team Object : " + team);
-		}
-
-	}
-
-	/*
 	 * find all players of Season by Id from database
 	 */
 	@Override
@@ -221,25 +149,6 @@ public class SeasonRepository implements ISeasonRepository {
 	}
 
 	/*
-	 * Test method for checking findAllPlayersOfSeason method working or not
-	 */
-	public void testFindAllPlayersOfSeason() {
-		System.out.println("Inside SeasonRepository testFindAllPlayersOfSeason()");
-
-		List<Player> players = findAllPlayersOfSeason(1);
-
-		ListIterator litr = players.listIterator();
-
-		while (litr.hasNext()) {
-
-			Player player = (Player) litr.next();
-
-			System.out.println("Player Object : " + player);
-		}
-
-	}
-
-	/*
 	 * find all matches of Season by Id from database
 	 */
 	@Override
@@ -256,25 +165,6 @@ public class SeasonRepository implements ISeasonRepository {
 		List<Match> matches = season.getMatches();
 
 		return matches;
-	}
-
-	/*
-	 * Test method for checking findAllMatchesOfSeason method working or not
-	 */
-	public void testFindAllMatchesOfSeason() {
-		System.out.println("Inside SeasonRepository testFindAllMatchesOfSeason()");
-
-		List<Match> matches = findAllMatchesOfSeason(1);
-
-		ListIterator litr = matches.listIterator();
-
-		while (litr.hasNext()) {
-
-			Match match = (Match) litr.next();
-
-			System.out.println("Match Object : " + match);
-		}
-
 	}
 
 	/*
@@ -324,25 +214,6 @@ public class SeasonRepository implements ISeasonRepository {
 	}
 
 	/*
-	 * Test method for checking findAllMatchesOfSeason method working or not
-	 */
-	public void testFindAllAwardsOfSeason() {
-		System.out.println("Inside SeasonRepository testFindAllMatchesOfSeason()");
-
-		List<Award> awards = findAllAwardsOfSeason(1);
-
-		ListIterator litr = awards.listIterator();
-
-		while (litr.hasNext()) {
-
-			Award award = (Award) litr.next();
-
-			System.out.println("Match Object : " + award);
-		}
-		// session.close();
-	}
-
-	/*
 	 * get a new season object and save it in session
 	 */
 	@Override
@@ -355,16 +226,6 @@ public class SeasonRepository implements ISeasonRepository {
 
 		session.save(season);
 
-	}
-
-	/*
-	 * Creating a new season object and pass it to createSeason
-	 */
-	public void testCreateSeason() {
-
-		Season season = new Season("season5", 2022);
-
-		createSeason(season);
 	}
 
 	/*
@@ -382,19 +243,6 @@ public class SeasonRepository implements ISeasonRepository {
 
 	}
 
-	/*
-	 * Test method for editing a season
-	 */
-	public void testEditSeason() {
-
-		Season s = findSeason(2);
-
-		s.setYearOfSeason(2020);
-
-		editSeason(s);
-
-	}
-
 	@Override
 	public void deleteSeason(int seasonId) {
 		System.out.println("Inside SeasonRepository deleteSeason()");
@@ -406,47 +254,6 @@ public class SeasonRepository implements ISeasonRepository {
 		session.delete(session.get(Season.class, seasonId));
 
 		session.getTransaction().commit();
-	}
-	
-	public void addTeam(Team team) {
-		
-		System.out.println("Inside SeasonRepository addTeam()");
-
-		Session session = factory.getSessionFactory().openSession();
-
-		session.beginTransaction();
-		
-		session.save(team);
-		
-		session.getTransaction().commit();
-	}
-	
-	public void testAddTeam(){
-		
-		Team t = new Team("RR","SS");
-		
-		addTeam(t);
-	}
-
-	/*
-	 * main method calling all test methods
-	 */
-
-	public static void main(String[] args) {
-		System.out.println("Inside main method");
-
-		// Creating object of SeasonRepository for calling non-static methods
-		SeasonRepository sr = new SeasonRepository();
-
-		sr.testFindAllSeasons();
-		sr.testFindSeason();
-		sr.testFindAllTeamsOfSeason();
-		sr.testFindAllPlayersOfSeason();
-		sr.testFindAllMatchesOfSeason();
-		sr.testFindAllAwardsOfSeason(); // sr.testCreateSeason(); //
-		//sr.deleteSeason(6);
-		//sr.testEditSeason();
-		//sr.testAddTeam();
 	}
 
 }

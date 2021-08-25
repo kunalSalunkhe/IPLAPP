@@ -30,5 +30,4 @@ public interface ISeasonService {
 
 	public void deleteSeason(int seasonId);
 
-	public void addTeam(Team team);
 }

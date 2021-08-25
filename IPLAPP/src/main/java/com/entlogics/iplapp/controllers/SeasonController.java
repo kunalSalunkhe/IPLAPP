@@ -228,17 +228,4 @@ public class SeasonController {
 		return "afterDelete";
 	}
 
-	@RequestMapping("/seasons/{seasonId}/teams/addTeam")
-	String addTeam(@ModelAttribute("team") Team team) {
-		
-		iSeasonService.addTeam(team);
-		
-		return "addTeam";
-	}
-
-	@RequestMapping("/seasons/{seasonId}/teams/teamAdded")
-	String addedTeam() {
-		
-		return "afterAddTeam";
-	}
 }

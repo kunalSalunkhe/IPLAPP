@@ -28,5 +28,4 @@ public interface ISeasonRepository {
 
 	public void deleteSeason(int seasonId);
 
-	public void addTeam(Team team);
 }
