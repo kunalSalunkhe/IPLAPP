@@ -31,7 +31,7 @@
 	<br>
 	<br>
 	<br>
-	<a href="playerForm">Add Player</a>
+	<a href="players/playerForm">Add Player</a>
 	<br>
 	<a href="players/1/">Player 1 Details</a>
 	<br>
