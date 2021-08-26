@@ -15,7 +15,6 @@ import javax.persistence.Table;
 public class Award {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "awardId")
 	private int awardId;
 
