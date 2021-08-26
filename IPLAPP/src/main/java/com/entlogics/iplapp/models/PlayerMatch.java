@@ -12,28 +12,33 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="lt_player_match")
+@Table(name = "lt_player_match")
 @IdClass(PlayerMatch.class)
-public class PlayerMatch implements Serializable{
+public class PlayerMatch implements Serializable {
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name="playerID")
+	@JoinColumn(name = "playerID")
 	private Player player;
-	
+
 	@Id
 	@ManyToOne
-	@JoinColumn(name="matchID")
+	@JoinColumn(name = "matchID")
 	private Match match;
-	
-	@Column(name="runScored")
+
+	@Column(name = "runScored")
 	private int runsScored;
-	
-	@Column(name="wicketsTaken")
+
+	@Column(name = "wicketsTaken")
 	private int wicketsTaken;
-	
-	@Column(name="strikeRate")
+
+	@Column(name = "strikeRate")
 	private float strikeRate;
+
+	public PlayerMatch() {
+		super();
+
+	}
 
 	public PlayerMatch(Player player, Match match) {
 		super();
