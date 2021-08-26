@@ -21,7 +21,7 @@
 
 LOCK TABLES `dt_award` WRITE;
 /*!40000 ALTER TABLE `dt_award` DISABLE KEYS */;
-INSERT INTO `dt_award` VALUES (1,'Man Of The Match',1,1),(2,'Super Striker',5,1),(3,'Man Of The Match',3,2),(4,'Super Striker',3,2),(5,'Man Of The Match',1,3),(6,'Super Striker',1,3),(7,'Man Of The Match',5,4),(8,'Super Striker',5,4);
+INSERT INTO `dt_award` VALUES (1,'Man Of The Match',1,1),(2,'Super Striker',5,1),(3,'Man Of The Match',3,2),(4,'Super Striker',3,2),(5,'Man Of The Match',1,3),(6,'Super Striker',1,3),(7,'Man Of The Match',5,4),(8,'Super Striker',5,4),(9,'HighestWicketTaker',2,1);
 /*!40000 ALTER TABLE `dt_award` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -31,7 +31,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `dt_match` WRITE;
 /*!40000 ALTER TABLE `dt_match` DISABLE KEYS */;
-INSERT INTO `dt_match` VALUES (1,1,'Mumbai','2012-04-04',333,1),(2,2,'Banglore','2012-05-04',402,1),(3,3,'Chennai','2012-06-04',375,1),(4,4,'Kolkata','2012-07-04',318,1);
+INSERT INTO `dt_match` VALUES (1,1,'Mumbai','2012-04-04',333,1),(2,2,'Banglore','2012-05-04',402,1),(3,3,'Chennai','2012-06-04',375,1),(4,4,'Kolkata','2012-07-04',318,1),(5,NULL,'Kolkata','2021-04-16',NULL,1);
 /*!40000 ALTER TABLE `dt_match` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -41,7 +41,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `dt_player` WRITE;
 /*!40000 ALTER TABLE `dt_player` DISABLE KEYS */;
-INSERT INTO `dt_player` VALUES (1,'Dhoni',32,'Batsman'),(2,'Ashwin',28,'Bowler'),(3,'Kohli',27,'Batsman'),(4,'starc',31,'Bowler'),(5,'Rohit',27,'Batsman'),(6,'Bumrah',25,'Bowler'),(7,'Gambhir',33,'Batsman'),(8,'Morkel',33,'Bowler');
+INSERT INTO `dt_player` VALUES (1,'Dhoni',32,'Batsman'),(2,'Ashwin',28,'Bowler'),(3,'Kohli',27,'Batsman'),(4,'starc',31,'Bowler'),(5,'Rohit',27,'Batsman'),(6,'Bumrah',25,'Bowler'),(7,'Gambhir',33,'Batsman'),(8,'Morkel',33,'Bowler'),(9,'Raina',30,'Batsman');
 /*!40000 ALTER TABLE `dt_player` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +51,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `dt_season` WRITE;
 /*!40000 ALTER TABLE `dt_season` DISABLE KEYS */;
-INSERT INTO `dt_season` VALUES (1,'DLF IPL','2012-04-04','2012-05-26',1),(2,'VIVO IPL','2013-04-15','2013-05-30',2);
+INSERT INTO `dt_season` VALUES (1,'DLF IPL','2012-04-04','2012-05-26',2019),(2,'VIVO IPL','2013-04-15','2013-05-30',2020),(3,'season4',NULL,NULL,2022);
 /*!40000 ALTER TABLE `dt_season` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +61,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `dt_team` WRITE;
 /*!40000 ALTER TABLE `dt_team` DISABLE KEYS */;
-INSERT INTO `dt_team` VALUES (1,'CSK','CC'),(2,'MI','AA'),(3,'RCB','MM'),(4,'KKR','JJ');
+INSERT INTO `dt_team` VALUES (1,'CSK','CC',1),(2,'MI','AA',2),(3,'RCB','MM',3),(4,'KKR','JJ',4),(9,'RR','SS',5),(11,'SRH','HH',6);
 /*!40000 ALTER TABLE `dt_team` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-16 19:27:56
+-- Dump completed on 2021-08-26 19:01:20

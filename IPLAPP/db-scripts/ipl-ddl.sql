@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `dt_award`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dt_award` (
-  `awardId` int NOT NULL,
+  `awardId` int NOT NULL AUTO_INCREMENT,
   `awardName` varchar(25) DEFAULT NULL,
   `winnerID` int DEFAULT NULL,
   `matchId` int DEFAULT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE `dt_award` (
   KEY `matchId` (`matchId`),
   CONSTRAINT `dt_award_ibfk_1` FOREIGN KEY (`winnerID`) REFERENCES `dt_player` (`playerID`) ON DELETE SET NULL,
   CONSTRAINT `dt_award_ibfk_2` FOREIGN KEY (`matchId`) REFERENCES `dt_match` (`matchID`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,7 +52,7 @@ CREATE TABLE `dt_match` (
   PRIMARY KEY (`matchID`),
   KEY `seasonID` (`seasonID`),
   CONSTRAINT `dt_match_ibfk_1` FOREIGN KEY (`seasonID`) REFERENCES `dt_season` (`seasonID`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +86,7 @@ CREATE TABLE `dt_season` (
   `seasonNo` int DEFAULT NULL,
   PRIMARY KEY (`seasonID`),
   UNIQUE KEY `sName` (`sName`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,12 +97,13 @@ DROP TABLE IF EXISTS `dt_team`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dt_team` (
-  `teamID` int NOT NULL,
+  `teamID` int NOT NULL AUTO_INCREMENT,
   `teamName` varchar(20) DEFAULT NULL,
   `ownerName` varchar(20) DEFAULT NULL,
+  `team_no` int DEFAULT NULL,
   PRIMARY KEY (`teamID`),
   UNIQUE KEY `teamName` (`teamName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,4 +257,4 @@ CREATE TABLE `lt_team_matches` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-16 19:26:34
+-- Dump completed on 2021-08-26 19:00:25
