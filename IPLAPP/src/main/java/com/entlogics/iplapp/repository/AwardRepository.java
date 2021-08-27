@@ -36,12 +36,6 @@ public class AwardRepository implements IAwardRepository {
 
 		session.beginTransaction();
 
-		// getting list of awards
-		List<Award> awards = session.createQuery("from Award a").getResultList();
-
-		// set award id greater than the last entry of award
-		award.setAwardId(awards.size() + 1);
-
 		session.save(award);
 
 		session.getTransaction().commit();

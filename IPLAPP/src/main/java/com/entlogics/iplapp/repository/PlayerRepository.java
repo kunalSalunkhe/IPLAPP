@@ -37,13 +37,7 @@ public class PlayerRepository implements IPlayerRepository {
 		Session session = factory.openSession();
 
 		session.beginTransaction();
-		
-		//getting list of players
-		List<Player> players = session.createQuery("from Player p").getResultList();
 
-		//set id of player greter than 1 of last entry of player
-		player.setPlayerId(players.size() + 1);
-		
 		session.save(player);
 
 		session.getTransaction().commit();

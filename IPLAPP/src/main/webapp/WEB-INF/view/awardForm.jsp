@@ -18,15 +18,6 @@
 		<br>
 		<br>
 
-        Winner ID : <form:input path="winner.playerId" />
-
-		<br>
-		<br>
-		
-		Match ID : <form:input path="match.matchId" />
-
-		<br>
-		<br>
 
 
 		<input type="submit" value=" submit" />

@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -22,8 +23,21 @@
 
 		<br>
 		<br>
+
+		Season Name :
 		
-		Season Id : <form:input path="season.seasonId" />
+		<form:select path="season.seasonName">
+
+			<c:forEach var="season" items="${seasonList}">
+			
+				<form:option value="${season.seasonName}" label="${season.seasonName}" />
+				
+			</c:forEach>
+		</form:select>
+
+		<br>
+		<br>
+		
 
 		<br>
 		<br>
@@ -33,6 +47,7 @@
 
 
 	</form:form>
+
 
 </body>
 </html>

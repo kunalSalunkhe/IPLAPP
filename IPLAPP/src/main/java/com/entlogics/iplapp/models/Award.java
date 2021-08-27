@@ -16,6 +16,7 @@ public class Award {
 
 	@Id
 	@Column(name = "awardId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int awardId;
 
 	@Column(name = "awardName")
@@ -30,9 +31,9 @@ public class Award {
 	private Match match;
 
 	public Award() {
-		
+
 	}
-	
+
 	public Award(int awardId, String awardName, Match match) {
 		super();
 		this.awardId = awardId;
@@ -74,6 +75,6 @@ public class Award {
 
 	@Override
 	public String toString() {
-		return "Award [awardId=" + awardId + ", awardName=" + awardName + ", Winner= " +winner.getPlayerName()+"]";
+		return "Award [awardId=" + awardId + ", awardName=" + awardName + ", Winner= " + winner.getPlayerName() + "]";
 	}
 }
