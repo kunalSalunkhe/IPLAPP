@@ -38,8 +38,8 @@
 			value="com.mysql.cj.jdbc.Driver" />
 		<property name="url"
 			value="jdbc:mysql://localhost:3306/IPL?useSSL=false&amp;serverTimezone=UTC" />
-		<property name="username" value="root" />
-		<property name="password" value="Mysql@1999" />
+		<property name="username" value="ipl" />
+		<property name="password" value="Ipl@1234" />
 
 	</bean>
 
